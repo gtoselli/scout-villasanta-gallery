@@ -58,7 +58,7 @@ function App() {
                     <Box height={'100px'} width={'100%'} paddingLeft={'10%'} paddingRight={'10%'} paddingTop={'2%'}>
                         <Flex direction={'row'} alignItems={'center'} justifyContent={'center'}>
                             <Box>
-                                <Heading size={'lg'}>Foto Villasanta 1</Heading>
+                                <Heading size={{sm: "md", md: "lg", lg: "lg"}}>Foto Villasanta 1</Heading>
                             </Box>
                             <Spacer/>
                             <Box><Select placeholder='Tutte le branche'
