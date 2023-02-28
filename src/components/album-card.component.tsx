@@ -35,7 +35,7 @@ export const AlbumCard = ({album}: { album: Album }) => {
                 <Flex justifyContent={'space-between'}>
                     <Heading size='sm'>{album.name} </Heading>
                     <Badge colorScheme='purple' rounded={'lg'} height={'80%'} ml='1'
-                           fontSize='1em'>{album.branca}</Badge>
+                           fontSize='1em'>Branca {album.branca}</Badge>
                 </Flex>
                 <Flex justifyContent={'space-between'}>
                     <Text size='lg'><Emoji label="calendario" symbol="📆"/> {date}</Text>
