@@ -1,10 +1,13 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Box, Center, Link, Text } from "@chakra-ui/react";
 import { Emoji } from "./emoji.component";
+import { DarkModeSwitcher } from "./dark-mode-switcher.component";
 
 export const Footer = () => (
   <Center padding={"25px"} flexDirection={"column"}>
-    <Text>
+    <DarkModeSwitcher />
+
+    <Text paddingTop={"20px"}>
       Sviluppato con <Emoji label="amore" symbol="❤️" /> da noi
     </Text>
     <Box
