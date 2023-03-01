@@ -20,7 +20,8 @@ const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
 
 export const AlbumCard = ({ album }: { album: Album }) => {
   const thumbCoverSrc =
-    album.album_cover.slice(0, album.album_cover.indexOf("=w")) + "=w500";
+    album.album_cover.slice(0, album.album_cover.indexOf("=w")) +
+    "=w500-h350-c";
   const date = capitalize(moment(album.date, "DD/MM/YYYY").format("MMMM YYYY"));
 
   return (
@@ -57,11 +58,11 @@ export const AlbumCard = ({ album }: { album: Album }) => {
             </Badge>
           </Flex>
           <Flex justifyContent={"space-between"}>
-            <Text size="lg">
+            <Text fontSize="xs">
               <Emoji label="calendario" symbol="📆" /> {date}
             </Text>
             {album.place ? (
-              <Text size="lg">
+              <Text fontSize="xs">
                 <Emoji label="luogo" symbol="📍" /> {album.place}
               </Text>
             ) : (
