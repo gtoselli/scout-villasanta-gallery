@@ -1,28 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import {
-  Alert,
-  AlertIcon,
   Box,
   Center,
   ChakraProvider,
-  CircularProgress,
   extendTheme,
   Flex,
-  Heading,
-  Link,
-  Select,
-  SimpleGrid,
-  Spacer,
-  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import moment from "moment";
 import "moment/locale/it";
 import { Album } from "./types/album.type";
-import { AlbumCard } from "./components/album-card.component";
-import { Emoji } from "./components/emoji.component";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
+import { Loader } from "./components/loader.component";
+import { TopBar } from "./components/top-bar.component";
+import { AlbumGallery } from "./components/album-gallery.component";
+import { Footer } from "./components/footer.component";
 
 moment.locale("it");
 
@@ -57,9 +49,7 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       {isLoading ? (
-        <Center height={"100vh"}>
-          <CircularProgress isIndeterminate color="green.300" />
-        </Center>
+        <Loader />
       ) : (
         <>
           <Flex direction={"column"}>
@@ -70,85 +60,24 @@ function App() {
               paddingRight={"10%"}
               paddingTop={"2%"}
             >
-              <Flex
-                direction={"row"}
-                alignItems={"center"}
-                justifyContent={"center"}
-              >
-                <Box>
-                  <Heading size={{ sm: "md", md: "lg", lg: "lg" }}>
-                    Foto Villasanta 1
-                  </Heading>
-                </Box>
-                <Spacer />
-                <Box>
-                  <Select
-                    placeholder="Tutte le branche"
-                    size={"sm"}
-                    onChange={(v) => {
-                      v.stopPropagation();
-                      if (!v.target.value) setVisibleAlbums(albums);
-                      else
-                        setVisibleAlbums(
-                          albums.filter(
-                            (album) => album.branca === v.target.value
-                          )
-                        );
-                    }}
-                  >
-                    <option value="LC">Branca LC</option>
-                    <option value="EG">Branca EG</option>
-                    <option value="RS">Branca RS</option>
-                    <option value="COCA">Coca</option>
-                  </Select>
-                </Box>
-              </Flex>
+              <TopBar
+                onFilter={(v) => {
+                  v.stopPropagation();
+                  if (!v.target.value) setVisibleAlbums(albums);
+                  else
+                    setVisibleAlbums(
+                      albums.filter((album) => album.branca === v.target.value)
+                    );
+                }}
+              />
             </Box>
             <Box>
               <Center>
-                <Box w={{ sm: "95%", md: "80%", lg: "60%" }}>
-                  <SimpleGrid columns={1} spacing={5} minChildWidth="350px">
-                    {visibleAlbums.length ? (
-                      visibleAlbums.map((album) => (
-                        <Box>
-                          <AlbumCard album={album} />
-                        </Box>
-                      ))
-                    ) : (
-                      <Box height={"80vh"}>
-                        <Alert status="warning">
-                          <AlertIcon />
-                          Ancora non ci sono album per questa branca, torna tra
-                          qualche giorno!
-                        </Alert>
-                      </Box>
-                    )}
-                  </SimpleGrid>
-                </Box>
+                <AlbumGallery albums={visibleAlbums} />
               </Center>
             </Box>
           </Flex>
-          <Center padding={"25px"} flexDirection={"column"}>
-            <Text>
-              Sviluppato con <Emoji label="amore" symbol="❤️" /> da noi
-            </Text>
-            <Box
-              display={"flex"}
-              justifyContent={"space-between"}
-              width={"100%"}
-            >
-              <Link href="http://www.scoutvillasanta.it/" isExternal>
-                Il nostro (vecchissimo) sito <ExternalLinkIcon mx="2px" />
-              </Link>
-
-              <Link
-                href="https://www.instagram.com/scout.villasanta1/"
-                isExternal
-              >
-                Il nostro IG <ExternalLinkIcon mx="2px" />
-              </Link>
-            </Box>
-          </Center>
+          <Footer />
         </>
       )}
     </ChakraProvider>

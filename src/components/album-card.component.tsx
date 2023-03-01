@@ -29,7 +29,7 @@ export const AlbumCard = ({ album }: { album: Album }) => {
       _hover={{
         color: "teal.500",
         cursor: "pointer",
-        transform: "scale(1.01)",
+        transform: "scale(1.02)",
       }}
       onClick={(e) => {
         e.preventDefault();
