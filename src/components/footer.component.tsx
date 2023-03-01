@@ -7,14 +7,20 @@ export const Footer = () => (
     <Text>
       Sviluppato con <Emoji label="amore" symbol="❤️" /> da noi
     </Text>
-    <Box display={"flex"} justifyContent={"space-between"} width={"100%"}>
+    <Box
+      display={"flex"}
+      justifyContent={"space-between"}
+      width={"100%"}
+      fontSize={{ sm: "15" }}
+      paddingTop={"10px"}
+    >
       <Link href="http://www.scoutvillasanta.it/" isExternal>
-        Il nostro (vecchissimo) sito <Emoji label="vecchio" symbol="👴🏾" />{" "}
+        Il nostro (vecchissimo) sito <Emoji label="vecchio" symbol="👴🏾" />
         <ExternalLinkIcon mx="2px" />
       </Link>
 
       <Link href="https://www.instagram.com/scout.villasanta1/" isExternal>
-        Il nostro IG <Emoji label="selfie" symbol="🤳🏼" />{" "}
+        Il nostro IG <Emoji label="selfie" symbol="🤳🏼" />
         <ExternalLinkIcon mx="2px" />
       </Link>
     </Box>

@@ -4,7 +4,7 @@ export const TopBar = ({ onFilter }: { onFilter: (v: any) => void }) => (
   <Flex direction={"row"} alignItems={"center"} justifyContent={"center"}>
     <Box display={"flex"} alignItems={"center"}>
       <Image
-        width={{ sm: "40px", md: "60px", lg: "70px" }}
+        width={{ sm: "30px", md: "60px", lg: "70px" }}
         src="android-chrome-384x384.png"
         paddingRight={"7px"}
       />
