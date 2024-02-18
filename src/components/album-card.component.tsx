@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Badge,
+  Box,
   Card,
   CardBody,
   Flex,
   Heading,
   Image,
+  Skeleton,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -18,7 +20,10 @@ moment.locale("it");
 
 const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
 
+// TODO: take all style and create and object or a series of variables
+
 export const AlbumCard = ({ album }: { album: Album }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const thumbCoverSrc =
     album.album_cover.slice(0, album.album_cover.indexOf("=w")) +
     "=w500-h350-c";
@@ -26,7 +31,8 @@ export const AlbumCard = ({ album }: { album: Album }) => {
 
   return (
     <Card
-      maxW="max"
+      align="stretch"
+      borderRadius="lg"
       _hover={{
         color: "teal.500",
         cursor: "pointer",
@@ -38,12 +44,21 @@ export const AlbumCard = ({ album }: { album: Album }) => {
       }}
     >
       <CardBody>
-        <Image
-          src={thumbCoverSrc}
-          alt={album.name}
-          borderRadius="lg"
-          referrerPolicy={"no-referrer"}
-        />
+        <Skeleton isLoaded={!isLoading} w="100%" h="321px" borderRadius="lg">
+          <Image
+            src={thumbCoverSrc}
+            alt={album.name}
+            width="100%"
+            h="321px"
+            fit="cover"
+            borderRadius="lg"
+            referrerPolicy={"no-referrer"}
+            onLoad={() => {
+              setIsLoading(false);
+            }}
+            fallback={<Box bg="gray.200" h="321px" borderRadius="lg" />}
+          />
+        </Skeleton>
         <Stack mt="6" spacing="3">
           <Flex justifyContent={"space-between"}>
             <Heading size="sm">{album.name} </Heading>
