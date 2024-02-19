@@ -53,10 +53,9 @@ export const AlbumCard = ({ album }: { album: Album }) => {
             fit="cover"
             borderRadius="lg"
             referrerPolicy={"no-referrer"}
-            onLoad={() => {
-              setIsLoading(false);
-            }}
-            fallback={<Box bg="gray.200" h="321px" borderRadius="lg" />}
+            onLoad={() => setIsLoading(false)}
+            onError={() => setIsLoading(false)}
+            fallback={<Box bg={`${BrancaColorMapping[album.branca]}.100`} h="321px" borderRadius="lg" />}
           />
         </Skeleton>
         <Stack mt="6" spacing="3">
