@@ -6,11 +6,7 @@ export const AlbumGallery = ({ albums }: { albums: Album[] }) => (
   <Box w={{ sm: "95%", md: "80%", lg: "60%" }}>
     <SimpleGrid columns={1} spacing={5} minChildWidth="350px">
       {albums.length ? (
-        albums.map((album) => (
-          <Box>
-            <AlbumCard album={album} />
-          </Box>
-        ))
+        albums.map((album, index) => <AlbumCard key={index} album={album} />)
       ) : (
         <Box height={"80vh"}>
           <Alert status="warning">
