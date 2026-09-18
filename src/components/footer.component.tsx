@@ -1,29 +1,32 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Box, Center, Link, Text } from "@chakra-ui/react";
+import { Flex, Link, Text } from "@chakra-ui/react";
 import { Emoji } from "./emoji.component";
-import { DarkModeSwitcher } from "./dark-mode-switcher.component";
 
 export const Footer = () => (
-  <Center padding={"25px"} flexDirection={"column"}>
-    <Text paddingTop={"20px"}>
-      Sviluppato con <Emoji label="amore" symbol="❤️" /> da noi
-    </Text>
-    <Box
-      display={"flex"}
-      justifyContent={"space-between"}
-      width={"100%"}
-      fontSize={{ sm: "15" }}
-      paddingTop={"10px"}
-    >
-      <Link href="http://www.scoutvillasanta.it/" isExternal>
-        Il nostro (vecchissimo) sito <Emoji label="vecchio" symbol="👴🏾" />
-        <ExternalLinkIcon mx="2px" />
-      </Link>
+  <Flex
+    as={"footer"}
+    position={"sticky"}
+    bottom={0}
+    alignItems={"center"}
+    gap={"10px"}
+    paddingX={"25px"}
+    paddingY={"12px"}
+    backgroundColor={"chakra-body-bg"}
+    borderTopWidth={"1px"}
+    fontSize={{ sm: "13", md: "15" }}
+  >
+    <Link href="http://www.scoutvillasanta.it/" isExternal flex={1}>
+      Il nostro (vecchissimo) sito <ExternalLinkIcon />
+    </Link>
 
-      <Link href="https://www.instagram.com/scout.villasanta1/" isExternal>
-        Il nostro IG <Emoji label="selfie" symbol="🤳🏼" />
-        <ExternalLinkIcon mx="2px" />
-      </Link>
-    </Box>
-  </Center>
+    <Link
+      href="https://www.instagram.com/scout.villasanta1/"
+      isExternal
+      flex={1}
+      textAlign={"right"}
+    >
+      Il nostro IG
+      <ExternalLinkIcon mx="2px" />
+    </Link>
+  </Flex>
 );
