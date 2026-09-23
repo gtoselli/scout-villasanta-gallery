@@ -1,4 +1,5 @@
 import { Box, Flex, Heading, Image, Select, Spacer } from "@chakra-ui/react";
+import { DarkModeSwitcher } from "./dark-mode-switcher.component";
 
 export const TopBar = ({ onFilter }: { onFilter: (v: any) => void }) => (
   <Flex direction={"row"} alignItems={"center"} justifyContent={"center"}>
@@ -13,13 +14,14 @@ export const TopBar = ({ onFilter }: { onFilter: (v: any) => void }) => (
       </Heading>
     </Box>
     <Spacer />
-    <Box>
+    <Box display={"flex"} alignItems={"center"} gap={"10px"}>
       <Select placeholder="Tutte le branche" size={"sm"} onChange={onFilter}>
         <option value="LC">Branca LC</option>
         <option value="EG">Branca EG</option>
         <option value="RS">Branca RS</option>
         <option value="COCA">Coca</option>
       </Select>
+      <DarkModeSwitcher size={"sm"} />
     </Box>
   </Flex>
 );

@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import "moment/locale/it";
-import { Album, BrancaColorMapping } from "../types/album.type";
+import { Album, BrancaColorMapping, EBranca } from "../types/album.type";
 import { Emoji } from "./emoji.component";
 
 moment.locale("it");
@@ -24,6 +24,7 @@ const capitalize = (s: string) => s && s[0].toUpperCase() + s.slice(1);
 
 export const AlbumCard = ({ album }: { album: Album }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hasError, setHasError] = useState<boolean>(false);
   const thumbCoverSrc =
     album.album_cover.slice(0, album.album_cover.indexOf("=w")) +
     "=w500-h350-c";
@@ -45,18 +46,41 @@ export const AlbumCard = ({ album }: { album: Album }) => {
     >
       <CardBody>
         <Skeleton isLoaded={!isLoading} w="100%" h="321px" borderRadius="lg">
-          <Image
-            src={thumbCoverSrc}
-            alt={album.name}
-            width="100%"
-            h="321px"
-            fit="cover"
-            borderRadius="lg"
-            referrerPolicy={"no-referrer"}
-            onLoad={() => setIsLoading(false)}
-            onError={() => setIsLoading(false)}
-            fallback={<Box bg={`${BrancaColorMapping[album.branca]}.100`} h="321px" borderRadius="lg" />}
-          />
+          {hasError ? (
+            <Box
+              bg={`${BrancaColorMapping[album.branca]}.100`}
+              h="321px"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              fontSize="5xl"
+              borderRadius="lg"
+            >
+              <Emoji symbol={symbolFromBranca(album.branca)} />
+            </Box>
+          ) : (
+            <Image
+              src={thumbCoverSrc}
+              alt={album.name}
+              width="100%"
+              h="321px"
+              fit="cover"
+              borderRadius="lg"
+              referrerPolicy="no-referrer"
+              onLoad={(event) => {
+                setIsLoading(false);
+                // Google serve un placeholder 350x350 con status 404: il browser
+                // lo considera caricato, quindi onError non scatta
+                const { naturalWidth, naturalHeight } = event.currentTarget;
+                if (naturalWidth !== 500 || naturalHeight !== 350)
+                  setHasError(true);
+              }}
+              onError={() => {
+                setIsLoading(false);
+                setHasError(true);
+              }}
+            />
+          )}
         </Skeleton>
         <Stack mt="6" spacing="3">
           <Flex justifyContent={"space-between"}>
@@ -87,4 +111,19 @@ export const AlbumCard = ({ album }: { album: Album }) => {
       </CardBody>
     </Card>
   );
+
+  function symbolFromBranca(branca: EBranca) {
+    switch (branca) {
+      case EBranca.LC:
+        return "🐺";
+      case EBranca.EG:
+        return "🏕️";
+      case EBranca.RS:
+        return "🏔️";
+      case EBranca.COCA:
+        return "🧭";
+      default:
+        return "⚠️";
+    }
+  }
 };
