@@ -35,7 +35,7 @@ function App() {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [visibleAlbums, setVisibleAlbums] = useState<Album[]>([]);
 
-  const disableAlert = process.env.REACT_APP_DISABLE_ALERT === "true";
+  const maintenanceMode = process.env.REACT_APP_MAINTENANCE_MODE === "true";
   const sheetLink =
     process.env.REACT_APP_SHEET_LINK ||
     "https://opensheet.elk.sh/1Y-WurqEckwVkpdKseKCaLjp0LjjiVLWRUDzZQtZ-L_A/photos";
@@ -74,7 +74,7 @@ function App() {
           </Box>
           <Box flex={1}>
             <Center>
-              {disableAlert ? (
+              {maintenanceMode ? (
                 <MaintenanceAlert />
               ) : (
                 <AlbumGallery albums={visibleAlbums} />
