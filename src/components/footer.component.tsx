@@ -1,6 +1,5 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Flex, Link, Text } from "@chakra-ui/react";
-import { Emoji } from "./emoji.component";
 
 export const Footer = () => (
   <Flex

@@ -1,16 +1,25 @@
-import { Heading } from "@chakra-ui/react";
+import { Heading, Text, VStack } from "@chakra-ui/react";
+import { Emoji } from "./emoji.component";
 
-export const DisableAlert = () => {
-  return (
-    <div className="mt-16 flex items-center justify-center px-8">
-      <div className="max-w-md">
-        <img className="mb-4 w-20" />
-        <Heading>Il sito è temporaneamente disabilitato</Heading>
-        <p>
-          Il sito è temporaneamente disabilitato per manutenzione. Torna tra
-          qualche giorno!
-        </p>
-      </div>
-    </div>
-  );
-};
+export const DisableAlert = () => (
+  <VStack
+    maxWidth={"md"}
+    paddingX={"8"}
+    paddingTop={"16"}
+    spacing={"4"}
+    textAlign={"center"}
+  >
+    <Text fontSize={"5xl"} lineHeight={1}>
+      <Emoji label="lavori in corso" symbol="🚧" />
+    </Text>
+
+    <Heading size={{ sm: "md", md: "lg" }}>
+      Il sito è temporaneamente disabilitato
+    </Heading>
+
+    <Text>
+      Il sito è temporaneamente disabilitato per manutenzione. Torna tra qualche
+      giorno!
+    </Text>
+  </VStack>
+);
