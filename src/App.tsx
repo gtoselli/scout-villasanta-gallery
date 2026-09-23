@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import {
   Box,
@@ -15,7 +15,7 @@ import { Loader } from "./components/loader.component";
 import { TopBar } from "./components/top-bar.component";
 import { AlbumGallery } from "./components/album-gallery.component";
 import { Footer } from "./components/footer.component";
-import { DisableAlert } from "./components/disable-alert.component";
+import { MaintenanceAlert } from "./components/maintenance-alert.component";
 
 moment.locale("it");
 
@@ -35,19 +35,17 @@ function App() {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [visibleAlbums, setVisibleAlbums] = useState<Album[]>([]);
 
-  //const disableAlert = process.env.REACT_APP_DISABLE_ALERT === "true";
-  const disableAlert = true;
+  const disableAlert = process.env.REACT_APP_DISABLE_ALERT === "true";
+  const sheetLink =
+    process.env.REACT_APP_SHEET_LINK ||
+    "https://opensheet.elk.sh/1Y-WurqEckwVkpdKseKCaLjp0LjjiVLWRUDzZQtZ-L_A/photos";
 
   useEffect(() => {
-    axios
-      .get(
-        "https://opensheet.elk.sh/1Y-WurqEckwVkpdKseKCaLjp0LjjiVLWRUDzZQtZ-L_A/photos",
-      )
-      .then((res) => {
-        setAlbums(res.data);
-        setVisibleAlbums(res.data);
-        setIsLoading(false);
-      });
+    axios.get(sheetLink).then((res) => {
+      setAlbums(res.data);
+      setVisibleAlbums(res.data);
+      setIsLoading(false);
+    });
   }, []);
 
   return (
@@ -77,7 +75,7 @@ function App() {
           <Box flex={1}>
             <Center>
               {disableAlert ? (
-                <DisableAlert />
+                <MaintenanceAlert />
               ) : (
                 <AlbumGallery albums={visibleAlbums} />
               )}
