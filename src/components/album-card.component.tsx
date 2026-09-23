@@ -67,7 +67,14 @@ export const AlbumCard = ({ album }: { album: Album }) => {
               fit="cover"
               borderRadius="lg"
               referrerPolicy="no-referrer"
-              onLoad={() => setIsLoading(false)}
+              onLoad={(event) => {
+                setIsLoading(false);
+                // Google serve un placeholder 350x350 con status 404: il browser
+                // lo considera caricato, quindi onError non scatta
+                const { naturalWidth, naturalHeight } = event.currentTarget;
+                if (naturalWidth !== 500 || naturalHeight !== 350)
+                  setHasError(true);
+              }}
               onError={() => {
                 setIsLoading(false);
                 setHasError(true);
