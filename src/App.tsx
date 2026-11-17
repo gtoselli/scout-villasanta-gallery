@@ -30,15 +30,15 @@ const breakpoints = {
 // 3. Extend the theme
 const theme = extendTheme({ breakpoints });
 
+const maintenanceMode = process.env.REACT_APP_MAINTENANCE_MODE === "true";
+const sheetLink =
+  process.env.REACT_APP_SHEET_LINK ||
+  "https://opensheet.elk.sh/1Y-WurqEckwVkpdKseKCaLjp0LjjiVLWRUDzZQtZ-L_A/photos";
+
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [albums, setAlbums] = useState<Album[]>([]);
   const [visibleAlbums, setVisibleAlbums] = useState<Album[]>([]);
-
-  const maintenanceMode = process.env.REACT_APP_MAINTENANCE_MODE === "true";
-  const sheetLink =
-    process.env.REACT_APP_SHEET_LINK ||
-    "https://opensheet.elk.sh/1Y-WurqEckwVkpdKseKCaLjp0LjjiVLWRUDzZQtZ-L_A/photos";
 
   useEffect(() => {
     axios.get(sheetLink).then((res) => {

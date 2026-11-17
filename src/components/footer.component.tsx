@@ -1,5 +1,5 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Flex, Link, Text } from "@chakra-ui/react";
+import { Flex, Link } from "@chakra-ui/react";
 
 export const Footer = () => (
   <Flex
