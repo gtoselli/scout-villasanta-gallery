@@ -36,11 +36,12 @@ const sheetLink =
   "https://opensheet.elk.sh/1Y-WurqEckwVkpdKseKCaLjp0LjjiVLWRUDzZQtZ-L_A/photos";
 
 function App() {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(!maintenanceMode);
   const [albums, setAlbums] = useState<Album[]>([]);
   const [visibleAlbums, setVisibleAlbums] = useState<Album[]>([]);
 
   useEffect(() => {
+    if (maintenanceMode) return;
     axios.get(sheetLink).then((res) => {
       setAlbums(res.data);
       setVisibleAlbums(res.data);
@@ -62,6 +63,7 @@ function App() {
             paddingTop={"2%"}
           >
             <TopBar
+              showFilter={!maintenanceMode}
               onFilter={(v) => {
                 v.stopPropagation();
                 if (!v.target.value) setVisibleAlbums(albums);
@@ -72,16 +74,19 @@ function App() {
               }}
             />
           </Box>
-          <Box flex={1}>
-            <Center>
-              {maintenanceMode ? (
-                <MaintenanceAlert />
-              ) : (
-                <AlbumGallery albums={visibleAlbums} />
-              )}
+          {maintenanceMode ? (
+            // paddingBottom compensa la top bar: l'avviso è al centro della finestra
+            <Center flex={1} paddingBottom={"100px"}>
+              <MaintenanceAlert />
             </Center>
-          </Box>
-          <Footer />
+          ) : (
+            <Box flex={1}>
+              <Center>
+                <AlbumGallery albums={visibleAlbums} />
+              </Center>
+            </Box>
+          )}
+          {!maintenanceMode && <Footer />}
         </Flex>
       )}
     </ChakraProvider>
